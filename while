@@ -1,0 +1,52 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        try (Scanner sc = new Scanner(System.in)) {
+            double nota1 = -1, nota2 = -1, nota3 = -1;
+            boolean salir = false;
+            while (!salir) {
+                System.out.println("\n===== MENÚ =====");
+                System.out.println("1. Digitar Nota 1");
+                System.out.println("2. Digitar Nota 2");
+                System.out.println("3. Digitar Nota 3");
+                System.out.println("4. Calcular Nota Final");
+                System.out.println("5. Salir");
+                System.out.print("Seleccione una opción: ");
+                
+                int opcion = sc.nextInt();
+                
+                switch (opcion) {
+                    case 1 -> nota1 = pedirNota(sc, 1);
+                    case 2 -> nota2 = pedirNota(sc, 2);
+                    case 3 -> nota3 = pedirNota(sc, 3);
+                    case 4 -> {
+                        if (nota1 >= 0 && nota2 >= 0 && nota3 >= 0) {
+                            double notaFinal = (nota1 + nota2 + nota3) / 3;
+                            System.out.printf("Nota final: %.2f\n", notaFinal);
+                        } else {
+                            System.out.println("Debe ingresar las 3 notas antes de calcular la nota final.");
+                        }
+                    }
+                    case 5 -> {
+                        salir = true;
+                        System.out.println("¡Hasta luego!");
+                    }
+                    default -> System.out.println("Opción inválida. Intente nuevamente.");
+                }
+            }
+        }
+    }
+
+    public static double pedirNota(Scanner sc, int numeroNota) {
+        double nota;
+        do {
+            System.out.print("Ingrese Nota " + numeroNota + " (0 - 5): ");
+            nota = sc.nextDouble();
+            if (nota < 0 || nota > 5) {
+                System.out.println("Nota inválida. Debe estar entre 0 y 5.");
+            }
+        } while (nota < 0 || nota > 5);
+        return nota;
+    }
+}
